@@ -1,0 +1,30 @@
+# Default values for ecr-creds.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: docker.io/wyehuongyan/ecr-creds
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.0.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "ecr-service-account"
+
+# Values
+targetPullSecretName: ecr-registry
+targetNamespaces:
+  - owf-sg-api-prod
+aws:
+  account: "048815871571"
+  region: "ap-southeast-1"
+  credentials:
+    accessKey: "QUtJQVFXWE5IQ1pKNksyNzdBVkg="
+    secretKey: "YTkvdE9OQ01UY1BvdjRmc3BDVGFNdDJPbGg3QlVFR25uMW80T3hmbw=="
