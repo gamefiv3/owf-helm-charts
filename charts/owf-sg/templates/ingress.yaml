@@ -1,0 +1,71 @@
+# API Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.api.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.ingress.api.name }}
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.ingress.api.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.service.name }}
+                port:
+                  number: {{ .Values.service.port }}
+---
+# Board Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.board.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.ingress.board.name }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /api/v1/sites/boards/$1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.ingress.board.host }}
+      http:
+        paths:
+          - path: /(.*)(/|$) # group 2: url ends with a / or $ signifies the end of a line.
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.service.name }}
+                port:
+                  number: {{ .Values.service.port }}
+---
+# Auth Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.auth.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.ingress.auth.name }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /api/v1/$1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.ingress.auth.host }}
+      http:
+        paths:
+          - path: /(.*)(/|$) # group 2: url ends with a / or $ signifies the end of a line.
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.service.name }}
+                port:
+                  number: {{ .Values.service.port }}

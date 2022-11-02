@@ -1,0 +1,35 @@
+namespace: owf-sg-api-prod
+app: owf-sg
+
+deployment:
+  name: owf-sg-prod
+  replicaCount: 3
+
+secret:
+  name: owf-sg-secret-prod
+
+container:
+  port: 8000
+
+image:
+  registrySecret: ecr-registry
+  repository: 048815871571.dkr.ecr.ap-southeast-1.amazonaws.com/owf/owf-sg
+  pullPolicy: Always
+  tag: latest
+
+service:
+  name: owf-sg-service-prod
+  type: NodePort
+  port: 80
+  targetPort: 8000 # match container.port
+
+ingress:
+  api:
+    name: owf-sg-ingress-prod
+    host: api.ourworldisflat.com
+  board:
+    name: board-owf-sg-ingress-prod
+    host: vcworld-board.valuechampion.sg
+  auth:
+    name: auth-owf-sg-ingress-prod
+    host: auth.ourworldisflat.com

@@ -1,0 +1,30 @@
+namespace: owf-sg-api-dev
+app: owf-sg
+
+deployment:
+  name: owf-sg-dev
+  replicaCount: 1
+
+secret:
+  name: owf-sg-secret-dev
+
+container:
+  port: 8000
+
+image:
+  repository: owf/owf-sg
+  pullPolicy: Never # get minikube to pull image locally
+  tag: latest
+
+service:
+  name: owf-sg-service-dev
+  type: ClusterIP
+  port: 80
+  targetPort: 8000 # match container.port
+
+ingress:
+  name: owf-sg-ingress-dev
+  host: dev.owf.com
+
+aws:
+  enabled: false

@@ -1,0 +1,35 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: {{ .Values.app }}
+  template:
+    metadata:
+      namespace: {{ .Values.namespace }}
+      labels:
+        app: {{ .Values.app }}
+        date: "{{ now | unixEpoch }}"
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.image.registrySecret }}
+      containers:
+      - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ .Values.app }}
+        ports:
+        - containerPort: {{ .Values.container.port }}
+        env: # env will take precedence than envFrom
+          - name: REDIS_HOST
+            value: redis-master
+          - name: REDIS_PORT
+            value: "6379"
+        envFrom:
+          - secretRef:
+              name: {{ .Values.secret.name }}
