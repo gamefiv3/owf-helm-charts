@@ -3,7 +3,7 @@ app: owf-sg
 
 deployment:
   name: owf-sg-sta
-  replicaCount: 1
+  replicaCount: 2
 
 secret:
   name: owf-sg-secret-sta
