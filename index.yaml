@@ -1,5 +1,27 @@
 apiVersion: v1
 entries:
+  ecr-creds:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-11-02T06:30:51.499857181Z"
+    description: A Helm chart for Kubernetes with AWS ECR
+    digest: 968adacbaad18fbe6e017c14f93487d9392918048b25af78f765c793fc980445
+    icon: https://wyehuongyan.github.io/img/profile.jpeg
+    keywords:
+    - aws ecr
+    - imagePullSecrets
+    - kubernetes
+    maintainers:
+    - email: wyehuong88@gmail.com
+      name: wyehuongyan
+      url: https://wyehuongyan.com
+    name: ecr-creds
+    sources:
+    - https://github.com/gamefiv3/owf-helm-charts/tree/main/charts/ecr-creds
+    type: application
+    urls:
+    - https://github.com/gamefiv3/owf-helm-charts/releases/download/ecr-creds-0.0.1/ecr-creds-0.0.1.tgz
+    version: 0.0.1
   owf-sg:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -11,4 +33,4 @@ entries:
     urls:
     - https://github.com/gamefiv3/owf-helm-charts/releases/download/owf-sg-0.1.0/owf-sg-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-02T04:06:18.330397785Z"
+generated: "2022-11-02T06:30:51.499862281Z"
